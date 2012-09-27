@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	<extension
+		id="net.rygielski.eclipse.problemmarker.builder"
+		name="External Problem Marker Builder"
+		point="org.eclipse.core.resources.builders">
+		<builder hasNature="true">
+			<run class="net.rygielski.eclipse.problemmarker.builder.Builder" />
+		</builder>
+	</extension>
+	<extension
+		id="net.rygielski.eclipse.problemmarker.nature"
+		name="External Problem Marker Nature"
+		point="org.eclipse.core.resources.natures">
+		<runtime>
+			<run class="net.rygielski.eclipse.problemmarker.builder.Nature" />
+		</runtime>
+		<builder id="net.rygielski.eclipse.problemmarker.builder" />
+	</extension>
+	<extension
+		id="net.rygielski.eclipse.problemmarker.problem"
+		name="External Problem"
+		point="org.eclipse.core.resources.markers">
+		<super type="org.eclipse.core.resources.problemmarker" />
+		<persistent value="true" />
+	</extension>
+</plugin>
