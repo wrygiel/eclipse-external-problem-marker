@@ -77,6 +77,8 @@ Use the checkbox to turn it on/off.
 Configuration
 -------------
 
+If you want to change the default configuration, you will need to know a good deal
+about **regular expressions** (specifically, group substitution syntax).
 All configuration is done via editing `<arguments>` elements in the `.project` file.
 
 All keys are **required**. Here is what they mean:
