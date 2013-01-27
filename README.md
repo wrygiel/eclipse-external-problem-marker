@@ -12,6 +12,15 @@ And transforms it to Eclipse problem markers:
 ![Problem markers](http://i.imgur.com/lJqAr.png)
 
 
+Known Problems
+--------------
+
+**I seems to hang Eclipse's build process sometimes. :(** Haven't been able to figure out
+*why* or *when* if happens. I'm not even sure if this problem is caused by the
+plugin itself, or by the script I use with it. However, you should know, that this is
+the first (and only?) Eclipse plugin I ever wrote.
+
+
 Installation
 ------------
 
