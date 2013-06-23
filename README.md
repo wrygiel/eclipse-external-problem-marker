@@ -25,8 +25,8 @@ Installation
 ------------
 
 * Close Eclipse.
-* Download the plugin file from the
-  [downloads](https://github.com/wrygiel/eclipse-external-problem-marker/downloads) section.
+* Download the plugin file from
+  [here](https://sourceforge.net/projects/eclipse-epm/files/).
 * Put it into the `dropins` directory inside your Eclipse folder.
 
 Then, go to your project directory and edit the `.project` file, add the following sections:
