@@ -66,6 +66,21 @@ public class Builder extends IncrementalProjectBuilder {
 			String filterRegexp = arguments.get("filter");
 			if (filterRegexp == null)
 				throw new RuntimeException(MSG);
+			
+			/* Version 1.0.0 allowed file-matching only. Version 1.1.0 allows
+			 * path matching too. To stay backward-compatible, we'll check if
+			 * there's a slash in the filter regexp. */
+			
+			if (filterRegexp.contains("/")) {
+				/* Path matching */
+			} else {
+				/* Filename-matching. Convert it to a proper path-matching
+				 * regexp. */
+				if (filterRegexp.startsWith("^")) {
+					filterRegexp = filterRegexp.substring(1);
+				}
+				filterRegexp = "^.*[/\\\\]" + filterRegexp;
+			}
 			this.config.filterPattern = Pattern.compile(filterRegexp);
 			String outputLineRegexp = arguments.get("output-match");
 			if (outputLineRegexp == null)
@@ -134,8 +149,12 @@ public class Builder extends IncrementalProjectBuilder {
 
 	void addMarkersToResource(IResource resource) {
 		LOGGER.log(Level.INFO, "Trying " + resource.getName() + "...");
-		if (resource instanceof IFile
-				&& getConfig().filterPattern.matcher(resource.getName()).find()) {
+		if (!(resource instanceof IFile)) {
+			return;
+		}
+		String path = resource.getLocation().toString();
+		path = path.replace('\\', '/');
+		if (getConfig().filterPattern.matcher(path).find()) {
 			IFile file = (IFile) resource;
 			deleteMarkers(file);
 			List<Issue> issues = getIssues(file.getRawLocation().makeAbsolute());
@@ -145,6 +164,7 @@ public class Builder extends IncrementalProjectBuilder {
 					marker.setAttribute(IMarker.MESSAGE, i.message);
 					marker.setAttribute(IMarker.SEVERITY, i.markerSeverity);
 					marker.setAttribute(IMarker.LINE_NUMBER, i.lineNumber);
+					marker.setAttribute(IMarker.TRANSIENT, true);
 				}
 			} catch (CoreException e) {
 			}

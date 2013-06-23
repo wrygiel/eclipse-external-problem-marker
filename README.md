@@ -42,7 +42,7 @@ Then, go to your project directory and edit the `.project` file, add the followi
 			<arguments>
 				<dictionary>
 					<key>filter</key>
-					<value>^.*\.py$</value>
+					<value>^.*\.py$</value> <!-- or ^.*/some/dir/prefix/.*\.py -->
 				</dictionary>
 				<dictionary>
 					<key>command</key>
@@ -93,8 +93,9 @@ All configuration is done via editing `<arguments>` elements in the `.project` f
 All keys are **required**. Here is what they mean:
 
   * **filter** (e.g. `^.*\.py$`) - A regular expression which will be used to filter
-    files within your project. Only files which match the filter will be included
-    in the build.
+    files within your project. Only files which match the given path filter will be
+	included in the build. Before version 1.1.0, this was matched against file names
+	only, now it is matched against files' absolute paths.
   * **command** (e.g. `cmd /c python D:\\PRIV\\Projekty\\pep8\\pep8.py "$1"`) -
     The command to execute upon each of your matched files.
     * It **should** contain the `$1` wildcard which will be replaced with a
