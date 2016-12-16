@@ -15,10 +15,13 @@ And transforms it to Eclipse problem markers:
 Known Problems
 --------------
 
-**It seems to hang Eclipse's build process sometimes. :(** Haven't been able to figure out
+**It seems to hang Eclipse's build process sometimes.** Haven't been able to figure out
 *why* or *when* if happens. I'm not even sure if this problem is caused by the
 plugin itself, or by the script I use with it. However, you should know, that this is
 the first (and only?) Eclipse plugin I ever wrote.
+
+Note, that I still use this plugin (it's the end of 2016 now), and I don't currently have
+any problems with it myself.
 
 
 Installation
