@@ -34,59 +34,61 @@ This example configuration works on Windows, and it will run the
 [pep8.py](https://pypi.python.org/pypi/pep8) validation script on all of the
 `*.py` files within the project.
 
-	<buildSpec>
-		<!-- Other, existing builders for your project -->
-		<buildCommand>...</buildCommand>
+```xml
+<buildSpec>
+	<!-- Other, existing builders for your project -->
+	<buildCommand>...</buildCommand>
 
-		<!-- ADD THIS ONE! Consider leaving the URL behind, for future reference. -->
-		<buildCommand>
-			<!-- About this plugin: https://github.com/wrygiel/eclipse-external-problem-marker -->
-			<name>net.rygielski.eclipse.problemmarker.builder</name>
-			<arguments>
-				<dictionary>
-					<key>filter</key>
-					<value>^.*\.py$</value>
-					<!-- or "^.*/some/dir/prefix/.*\.py" if you want a directory filter -->
-				</dictionary>
-				<dictionary>
-					<key>command</key>
-					<value>cmd /c python D:\\PRIV\\Projekty\\pep8\\pep8.py "$1"</value>
-					<!--
-					The above is for Windows. For Linux, this should work:
-					<value>/home/users/rygielski/pep8/pep8.py "$1"</value>
-					-->
-				</dictionary>
-				<dictionary>
-					<key>output-match</key>
-					<value>^([A-Z]:)?[^:]+:([0-9]+):([0-9]+): (.)(.*)$</value>
-					<!-- This will match "views.py:18:101: E501 line too long (102 > 100 characters)" -->
-				</dictionary>
-				<dictionary>
-					<key>line-number</key>
-					<value>$2</value>
-					<!-- Pulls the "18" from "views.py:18:101: E501..." -->
-				</dictionary>
-				<dictionary>
-					<key>severity</key>
-					<value>W</value>
-					<!-- $4 would pull the "E" from "views.py:18:101: E501..." -->
-				</dictionary>
-				<dictionary>
-					<key>message</key>
-					<value>$4$5</value>
-					<!-- $4$5 pulls the "E501 line too long (102 > 100 characters)" -->
-				</dictionary>
-			</arguments>
-		</buildCommand>
-	</buildSpec>
+	<!-- ADD THIS ONE! Consider leaving the URL behind, for future reference. -->
+	<buildCommand>
+		<!-- About this plugin: https://github.com/wrygiel/eclipse-external-problem-marker -->
+		<name>net.rygielski.eclipse.problemmarker.builder</name>
+		<arguments>
+			<dictionary>
+				<key>filter</key>
+				<value>^.*\.py$</value>
+				<!-- or "^.*/some/dir/prefix/.*\.py" if you want a directory filter -->
+			</dictionary>
+			<dictionary>
+				<key>command</key>
+				<value>cmd /c python D:\\PRIV\\Projekty\\pep8\\pep8.py "$1"</value>
+				<!--
+				The above is for Windows. For Linux, this should work:
+				<value>/home/users/rygielski/pep8/pep8.py "$1"</value>
+				-->
+			</dictionary>
+			<dictionary>
+				<key>output-match</key>
+				<value>^([A-Z]:)?[^:]+:([0-9]+):([0-9]+): (.)(.*)$</value>
+				<!-- This will match "views.py:18:101: E501 line too long (102 > 100 characters)" -->
+			</dictionary>
+			<dictionary>
+				<key>line-number</key>
+				<value>$2</value>
+				<!-- Pulls the "18" from "views.py:18:101: E501..." -->
+			</dictionary>
+			<dictionary>
+				<key>severity</key>
+				<value>W</value>
+				<!-- $4 would pull the "E" from "views.py:18:101: E501..." -->
+			</dictionary>
+			<dictionary>
+				<key>message</key>
+				<value>$4$5</value>
+				<!-- $4$5 pulls the "E501 line too long (102 > 100 characters)" -->
+			</dictionary>
+		</arguments>
+	</buildCommand>
+</buildSpec>
 
-	<natures>
-		<!-- Other, existing natures for your project -->
-		<nature>...</nature>
+<natures>
+	<!-- Other, existing natures for your project -->
+	<nature>...</nature>
 
-		<!-- ADD THIS ONE! -->
-		<nature>net.rygielski.eclipse.problemmarker.nature</nature>
-	</natures>
+	<!-- ADD THIS ONE! -->
+	<nature>net.rygielski.eclipse.problemmarker.nature</nature>
+</natures>
+```
 
 Please note, that you must add **both** `<buildCommand>` and `<nature>` elements.
 
